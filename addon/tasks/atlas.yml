@@ -1,0 +1,45 @@
+version: '2'
+
+vars:
+  quiet: false
+
+tasks:
+  package:
+    desc: compile & bundle the project
+    cmds:
+      - atlas-mvn package
+    deps: [eclipse]
+
+  enable_debug:
+    cmds:
+      - >
+        curl -s -u admin:admin -X PUT -d "" -H "Content-Type: application/json" \
+          http://localhost:7990/rest/api/latest/logs/logger/io.reconquest.toolz/debug
+
+  install:
+    desc: compile and install current version
+    cmds:
+      - task: enable_debug
+      - task: package
+      - jar=$(taskutils/jar {{.version}});
+        stacket --uri http://admin:admin@localhost:7990/ addons install "$jar"
+
+  eclipse_eclipse:
+    desc: prepare eclipse project
+    cmds:
+      - atlas-mvn eclipse:clean
+      - atlas-mvn eclipse:eclipse
+          -DoutputDirectory=./build/eclipse
+          -DdownloadJavadocs=true
+          -DdownloadSources=true
+
+  eclipse:
+    cmds:
+      - task: eclipse_eclipse
+    status:
+      - test -d build/eclipse
+
+  compile:
+    desc: compile code
+    cmds:
+      - atlas-mvn compile

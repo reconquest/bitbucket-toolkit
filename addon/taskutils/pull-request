@@ -1,0 +1,22 @@
+#!/bin/bash
+
+config=$1
+open=${2}
+merge=${3}
+
+URI=${URI:-https://admin:admin@bitbucket.local}
+
+:ignore() {
+    "${@}" &>/dev/null
+}
+
+PROJECT=PR-$RANDOM
+REPO=PR-$RANDOM
+
+stacket --uri "$URI" projects create $PROJECT
+stacket --uri "$URI" repositories create $PROJECT $REPO
+
+:ignore git add .
+:ignore git commit -m "initial commit"
+
+git-brancher -f "$config" "$open" "$merge" -p $URI/scm/$PROJECT/$REPO.git

@@ -1,0 +1,22 @@
+version: '2'
+
+output: prefixed
+silent: true
+
+vars:
+  pwd:
+    sh: pwd
+  version: 6.8.0
+
+includes:
+  atlas: tasks/atlas.yml
+
+tasks:
+  version:
+    cmds:
+      - ./taskutils/version
+
+  dbg:
+    cmds:
+      - task: atlas:install
+      - task: backend:debug

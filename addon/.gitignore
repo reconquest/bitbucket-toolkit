@@ -1,0 +1,17 @@
+/target
+/*.log
+/bin
+/*.license
+nginx.conf
+/*.tsbuildinfo
+/.project
+/.classpath
+/docker
+/.settings
+/.shortcuts
+/build
+jdt:/
+/.task
+/target_*
+/dist
+/license.dc

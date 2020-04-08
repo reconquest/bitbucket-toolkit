@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<atlassian-plugin
+        key="${atlassian.plugin.key}"
+        name="${project.name}"
+        plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor
+                name="${project.organization.name}"
+                url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+
+    <repository-hook
+            key="post-receive-hook"
+            name="post-receive-hook"
+            i18n-name-key="post-receive-hook.name"
+            class="io.reconquest.toolz.ToolzPostReceiveHook">
+        <description key="post-receive-hook.description">
+            Yesn't
+        </description>
+        <icon>images/logo.144x144.png</icon>
+    </repository-hook>
+
+    <rest
+            name="Toolz Rest"
+            i18n-name-key="toolz-rest.name"
+            key="toolz-rest"
+            path="/toolz"
+            version="1.0">
+        <description key="toolz-rest.description">The Toolz Rest Plugin</description>
+    </rest>
+</atlassian-plugin>
